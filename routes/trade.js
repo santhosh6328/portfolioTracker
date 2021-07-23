@@ -2,18 +2,10 @@ const express = require("express");
 const Trade = require("../models/trade");
 const router = express.Router();
 
-router.get("/fetch-trade/:id", async (req, res) => {
-  try {
-    const trade = await Trade.findById(req.params.id);
-    res.send(trade);
-  } catch (err) {
-    res.send(err);
-  }
-});
-
 router.post("/add-trade", async (req, res) => {
   try {
     let trade = new Trade({
+      portfolio_id: req.body.portfolio_id,
       trade_type: req.body.trade_type,
       ticker_name: req.body.ticker_name,
       share_count: req.body.share_count,
@@ -32,6 +24,7 @@ router.put("/update-trade/:id", async (req, res) => {
     const trade = await Trade.findByIdAndUpdate(
       req.params.id,
       {
+        portfolio_id: req.body.portfolio_id,
         trade_type: req.body.trade_type,
         ticker_name: req.body.ticker_name,
         share_count: req.body.share_count,

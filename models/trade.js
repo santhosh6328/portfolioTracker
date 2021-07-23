@@ -4,6 +4,10 @@ const Joi = require("joi");
 const Trade = mongoose.model(
   "Trade",
   new mongoose.Schema({
+    portfolio_id: {
+      type: String,
+      required: true,
+    },
     trade_type: {
       type: String,
       required: true,
@@ -28,6 +32,7 @@ const Trade = mongoose.model(
 
 function validateTrade(trade) {
   const schema = {
+    portfolio_id: Joi.number().required(),
     trade_type: Joi.string().min(3).max(4).required(),
     ticker_name: Joi.string().min(1).required(),
     share_count: Joi.number().required(),
