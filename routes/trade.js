@@ -2,6 +2,11 @@ const express = require("express");
 const Trade = require("../models/trade");
 const router = express.Router();
 
+router.get('/all', async(req,res)=>{
+  const trade = await Trade.find();
+  res.send(trade);
+});
+
 router.post("/add-trade", async (req, res) => {
   try {
     let trade = new Trade({
