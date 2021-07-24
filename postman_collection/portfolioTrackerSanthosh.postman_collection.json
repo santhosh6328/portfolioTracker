@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "1c1e42e7-d55a-4b31-8f9e-dde1b36a68dd",
+		"name": "portfolioTrackerSanthosh",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{host}}/trade/add-trade",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"portfolio_id\": 1,\n    \"trade_type\": \"SELL\",\n    \"ticker_name\": \"ITC\",\n    \"share_count\":1,\n    \"buying_price\": 80\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/trade/add-trade",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trade",
+						"add-trade"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{host}}/trade/update-trade/60fc0aa30a619653ec95c0f3",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"portfolio_id\": 1,\n    \"trade_type\": \"SELL\",\n    \"ticker_name\": \"SAN\",\n    \"share_count\": 1,\n    \"buying_price\": 200\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/trade/update-trade/60fc0aa30a619653ec95c0f3",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trade",
+						"update-trade",
+						"60fc0aa30a619653ec95c0f3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{host}}/trade/remove-trade/60fc194afe8dac691e8fa498",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/trade/remove-trade/60fc194afe8dac691e8fa498",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trade",
+						"remove-trade",
+						"60fc194afe8dac691e8fa498"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{host}}/portfolio/fetch-portfolio/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/portfolio/fetch-portfolio/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"portfolio",
+						"fetch-portfolio",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{host}}/portfolio/fetch-trades/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/portfolio/fetch-trades/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"portfolio",
+						"fetch-trades",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{host}}/portfolio/returns/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/portfolio/returns/1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"portfolio",
+						"returns",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{host}}/trade/all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/trade/all",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"trade",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{host}}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
