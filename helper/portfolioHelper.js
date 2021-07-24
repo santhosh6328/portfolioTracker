@@ -6,6 +6,7 @@ function portfolioAggregator(data) {
     if (
       result.filter((e) => e.ticker_name === data[i].ticker_name).length > 0
     ) {
+      // security is already present in results array
       for (let j = 0; j < result.length; j++) {
         if (data[i].ticker_name === result[j].ticker_name) {
           if (data[i]["trade_type"] === "BUY") {
@@ -25,6 +26,7 @@ function portfolioAggregator(data) {
         }
       }
     } else {
+      // If the security is not already present
       let security = {};
       security["ticker_name"] = data[i]["ticker_name"];
       security["share_count"] = data[i]["share_count"];
