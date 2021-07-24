@@ -7,7 +7,11 @@ const router = express.Router();
 router.get("/fetch-portfolio/:portfolio_id", async (req, res) => {
   const trade = await Trade.find({
     portfolio_id: req.params.portfolio_id,
-  }).select("-_id -portfolio_id -trade_type -__v");
+  })
+    .select("-_id -portfolio_id -__v")
+    .catch((err) => {
+      res.send(err["message"]);
+    });
 
   const result = portfolioHelper.portfolioAggregator(trade);
   res.send(result);
@@ -17,7 +21,11 @@ router.get("/fetch-trades/:portfolio_id", async (req, res) => {
   try {
     const trade = await Trade.find({
       portfolio_id: req.params.portfolio_id,
-    }).select("-_id -portfolio_id -__v");
+    })
+      .select("-_id -portfolio_id -__v")
+      .catch((err) => {
+        res.send(err["message"]);
+      });
     res.send(trade);
   } catch (err) {
     res.send(err);
@@ -27,7 +35,11 @@ router.get("/fetch-trades/:portfolio_id", async (req, res) => {
 router.get("/returns/:portfolio_id", async (req, res) => {
   const trade = await Trade.find({
     portfolio_id: req.params.portfolio_id,
-  }).select("-_id -portfolio_id -__v");
+  })
+    .select("-_id -portfolio_id -__v")
+    .catch((err) => {
+      res.send(err["message"]);
+    });
   const returns = portfolioHelper.calculateReturns(trade);
   res.send(returns.toString());
 });

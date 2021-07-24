@@ -17,12 +17,10 @@ function portfolioAggregator(data) {
             );
             result[j]["share_count"] =
               result[j]["share_count"] + data[i]["share_count"];
-              result[j]["trade_type"] = data[i]["trade_type"];
           } else {
             result[j]["share_count"] =
               result[j]["share_count"] - data[i]["share_count"];
             result[j]["buying_price"] = result[j]["buying_price"];
-            result[j]["trade_type"] = data[i]["trade_type"];
           }
         }
       }
@@ -43,20 +41,21 @@ function calculateReturns(portfolio) {
   for (let i = 0; i < portfolio.length; i++) {
     total =
       total +
-      (CURRENT_MARKET_PRICE - portfolio[i]["buying_price"]) * portfolio[i]["share_count"];
+      (CURRENT_MARKET_PRICE - portfolio[i]["buying_price"]) *
+        portfolio[i]["share_count"];
   }
   return total;
 }
 
 function averageBuyingPrice(
-  current_share_price,
   current_share_count,
-  trade_price,
-  trade_count
+  current_share_price,
+  trade_count,
+  trade_price
 ) {
   return (
-    current_share_price * current_share_count +
-    (trade_price * trade_count) / (current_share_count + trade_count)
+    (current_share_price * current_share_count + trade_price * trade_count) /
+    (current_share_count + trade_count)
   );
 }
 
