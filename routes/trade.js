@@ -123,7 +123,7 @@ router.put("/update-trade/:id", async (req, res) => {
 router.delete("/remove-trade/:id", async (req, res) => {
   try {
     const trade = await Trade.findByIdAndRemove(req.params.id).catch((err) => {
-      res.send(err["message"]).status(400);
+      return res.send(err["message"]).status(400);
     });
     return res.send(trade);
   } catch (err) {

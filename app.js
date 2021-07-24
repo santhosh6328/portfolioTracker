@@ -12,7 +12,7 @@ require("dotenv").config();
 const port = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
-  res.send("hello from simple server :)");
+  res.send("hello from simple portfolio tracker APIs. To know more : https://github.com/santhosh6328/portfolioTracker :)");
 });
 
 app.use("/trade", trade);
