@@ -1,3 +1,4 @@
+const Joi = require("joi");
 const CURRENT_MARKET_PRICE = 100;
 
 function portfolioAggregator(data) {
@@ -61,4 +62,15 @@ function averageBuyingPrice(
   );
 }
 
-module.exports = { portfolioAggregator, calculateReturns };
+function validateTrade(trade) {
+  const schema = Joi.object({
+    portfolio_id: Joi.number().required(),
+    trade_type: Joi.string().min(3).max(4).required(),
+    ticker_name: Joi.string().min(1).required(),
+    share_count: Joi.number().required(),
+    buying_price: Joi.number().required(),
+  });
+  return schema.validate(trade);
+}
+
+module.exports = { portfolioAggregator, calculateReturns, validateTrade };

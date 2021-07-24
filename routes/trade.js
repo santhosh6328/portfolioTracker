@@ -5,17 +5,22 @@ const router = express.Router();
 
 router.get("/all", async (req, res) => {
   const trade = await Trade.find();
-  res.send(trade);
+  return res.send(trade);
 });
 
 router.post("/add-trade/", async (req, res) => {
+  const { error } = portfolioHelper.validateTrade(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
   if (req.body.trade_type === "SELL") {
     const current_portfolio = await Trade.find({
       portfolio_id: req.body.portfolio_id,
     })
       .select("-_id -portfolio_id -__v")
       .catch((err) => {
-        res.status(400).send(err["message"]);
+        return res.status(400).send(err["message"]);
       });
 
     const result = portfolioHelper.portfolioAggregator(current_portfolio);
@@ -23,8 +28,7 @@ router.post("/add-trade/", async (req, res) => {
     for (let i = 0; i < result.length; i++) {
       if (result[i]["ticker_name"] === req.body.ticker_name) {
         if (result[i]["share_count"] - req.body.share_count < 0) {
-          res.status(400).send("share count cannot be negative");
-          return;
+          return res.status(400).send("share count cannot be negative");
         } else {
           let trade = new Trade({
             portfolio_id: req.body.portfolio_id,
@@ -34,11 +38,9 @@ router.post("/add-trade/", async (req, res) => {
             buying_price: req.body.buying_price,
           });
           trade = await trade.save().catch((err) => {
-            res.status(400).send(err["message"]);
-            return;
+            return res.status(400).send(err["message"]);
           });
-          res.send(trade);
-          return
+          return res.send(trade);
         }
       }
     }
@@ -52,20 +54,25 @@ router.post("/add-trade/", async (req, res) => {
       buying_price: req.body.buying_price,
     });
     trade = await trade.save().catch((err) => {
-      res.send(err["message"]).status(400);
+      return res.send(err["message"]).status(400);
     });
-    res.send(trade);
+    return res.send(trade);
   }
 });
 
 router.put("/update-trade/:id", async (req, res) => {
+  const { error } = portfolioHelper.validateTrade(req.body);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
   if (req.body.trade_type === "SELL") {
     const current_portfolio = await Trade.find({
       portfolio_id: req.body.portfolio_id,
     })
       .select("-_id -portfolio_id -__v")
       .catch((err) => {
-        res.send(err["message"]);
+        return res.send(err["message"]);
       });
 
     const result = portfolioHelper.portfolioAggregator(current_portfolio);
@@ -73,8 +80,7 @@ router.put("/update-trade/:id", async (req, res) => {
     for (let i = 0; i < result.length; i++) {
       if (result[i]["ticker_name"] === req.body.ticker_name) {
         if (result[i]["share_count"] - req.body.share_count < 0) {
-          res.status(400).send("share count cannot be negative");
-          return;
+          return res.status(400).send("share count cannot be negative");
         } else {
           let trade = new Trade({
             portfolio_id: req.body.portfolio_id,
@@ -84,15 +90,13 @@ router.put("/update-trade/:id", async (req, res) => {
             buying_price: req.body.buying_price,
           });
           trade = await trade.save().catch((err) => {
-            res.status(400).send(err["message"]);
-            return;
+            return res.status(400).send(err["message"]);
           });
-          res.send(trade);
-          return;
+          return res.send(trade);
         }
       }
     }
-    res.status(400).send("share count cannot be negative");
+    return res.status(400).send("share count cannot be negative");
   } else {
     const trade = await Trade.findByIdAndUpdate(
       req.params.id,
@@ -110,9 +114,9 @@ router.put("/update-trade/:id", async (req, res) => {
         }
       }
     ).catch((err) => {
-      res.send(err["message"]).status(400);
+      return res.send(err["message"]).status(400);
     });
-    res.send(trade);
+    return res.send(trade);
   }
 });
 
@@ -121,9 +125,9 @@ router.delete("/remove-trade/:id", async (req, res) => {
     const trade = await Trade.findByIdAndRemove(req.params.id).catch((err) => {
       res.send(err["message"]).status(400);
     });
-    res.send(trade);
+    return res.send(trade);
   } catch (err) {
-    res.send(err);
+    return res.send(err);
   }
 });
 

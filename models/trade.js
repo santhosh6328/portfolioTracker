@@ -30,15 +30,4 @@ const Trade = mongoose.model(
   })
 );
 
-function validateTrade(trade) {
-  const schema = {
-    portfolio_id: Joi.number().required(),
-    trade_type: Joi.string().min(3).max(4).required(),
-    ticker_name: Joi.string().min(1).required(),
-    share_count: Joi.number().required(),
-    buying_price: Joi.number().required(),
-  };
-  return Joi.validate(trade, schema);
-}
-
 module.exports = Trade;

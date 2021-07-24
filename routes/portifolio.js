@@ -10,11 +10,11 @@ router.get("/fetch-portfolio/:portfolio_id", async (req, res) => {
   })
     .select("-_id -portfolio_id -__v")
     .catch((err) => {
-      res.send(err["message"]);
+      return res.send(err["message"]);
     });
 
   const result = portfolioHelper.portfolioAggregator(trade);
-  res.send(result);
+  return res.send(result);
 });
 
 router.get("/fetch-trades/:portfolio_id", async (req, res) => {
@@ -24,11 +24,11 @@ router.get("/fetch-trades/:portfolio_id", async (req, res) => {
     })
       .select("-_id -portfolio_id -__v")
       .catch((err) => {
-        res.send(err["message"]);
+        return res.send(err["message"]);
       });
-    res.send(trade);
+    return res.send(trade);
   } catch (err) {
-    res.send(err);
+    return res.send(err);
   }
 });
 
@@ -38,10 +38,10 @@ router.get("/returns/:portfolio_id", async (req, res) => {
   })
     .select("-_id -portfolio_id -__v")
     .catch((err) => {
-      res.send(err["message"]);
+      return res.send(err["message"]);
     });
   const returns = portfolioHelper.calculateReturns(trade);
-  res.send(returns.toString());
+  return res.send(returns.toString());
 });
 
 module.exports = router;
