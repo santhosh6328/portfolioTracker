@@ -5,7 +5,7 @@ and can do basic return calculations like Total return on the investment.
 
 ### Hosting details
 
-- IP addess : 3.239.242.9 [ Check github issues for latest Static IP]
+- IP addess : 52.23.177.238 [ Check github issues for latest Static IP]
 - port : 80
 
 ### key features
@@ -351,11 +351,11 @@ localhost:3000/trade/all
 ```
 
 //update the yum repository
-sudo yum update
+[sudo] yum update
 
 //install node js
 curl -sL https://rpm.nodesource.com/setup_12.x | sudo bash -
-sudo yum install nodejs
+[sudo] yum install nodejs
 
 //install git if not already present
 yum install git
@@ -367,21 +367,23 @@ git clone <git url>
 cd </portfolioTracker>
 
 //application specific instructions
-sudo npm install 
+[sudo] npm install 
 export PORT=<port | 80>
 export URI=<mongodb_connection_uri>
 
 //start the applicaion
-sudo npm start
+[sudo] npm start
 
 (check if the application is up @ http://public_ip:<port>/)
 
 // optional : create a backgroud process for node
-sudo npm install -g pm2
-sudo pm2 start app.js
-sudo pm2 save
-sudo pm2 startup
+[sudo] npm install -g forever
+[sudo] forever start app.js
+
+additional commands
+[sudo] forever list
+[sudo] forever logs
 
 ```
 
-   ---
+---

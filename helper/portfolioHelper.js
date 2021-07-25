@@ -38,7 +38,6 @@ function portfolioAggregator(data) {
       security["ticker_name"] = data[i]["ticker_name"];
       security["share_count"] = data[i]["share_count"];
       security["buying_price"] = data[i]["buying_price"];
-      security["trade_type"] = data[i]["trade_type"];
       result.push(security);
     }
   }
