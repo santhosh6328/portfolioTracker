@@ -3,7 +3,11 @@ const Trade = require("../models/trade");
 const portfolioHelper = require("../helper/portfolioHelper");
 const router = express.Router();
 
-//routes for /portfolio
+/*
+routes for /portfolio
+*/
+
+// refer API documentation : API 5
 router.get("/fetch-portfolio/:portfolio_id", async (req, res) => {
   const trade = await Trade.find({
     portfolio_id: req.params.portfolio_id,
@@ -13,10 +17,11 @@ router.get("/fetch-portfolio/:portfolio_id", async (req, res) => {
       return res.send(err["message"]);
     });
 
-  const result = portfolioHelper.portfolioAggregator(trade);
+  const result = await portfolioHelper.portfolioAggregator(trade);
   return res.send(result);
 });
 
+// refer API documentation : API 6
 router.get("/fetch-trades/:portfolio_id", async (req, res) => {
   try {
     const trade = await Trade.find({
@@ -32,6 +37,7 @@ router.get("/fetch-trades/:portfolio_id", async (req, res) => {
   }
 });
 
+// refer API documentation : API 7
 router.get("/returns/:portfolio_id", async (req, res) => {
   const trade = await Trade.find({
     portfolio_id: req.params.portfolio_id,
@@ -40,7 +46,7 @@ router.get("/returns/:portfolio_id", async (req, res) => {
     .catch((err) => {
       return res.send(err["message"]);
     });
-  const returns = portfolioHelper.calculateReturns(trade);
+  const returns = await portfolioHelper.calculateReturns(trade);
   return res.send(returns.toString());
 });
 

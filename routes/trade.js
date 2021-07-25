@@ -3,13 +3,15 @@ const Trade = require("../models/trade");
 const portfolioHelper = require("../helper/portfolioHelper");
 const router = express.Router();
 
+// refer API documentation : API 8
 router.get("/all", async (req, res) => {
   const trade = await Trade.find();
   return res.send(trade);
 });
 
+// refer API documentation : API 2
 router.post("/add-trade/", async (req, res) => {
-  const { error } = portfolioHelper.validateTrade(req.body);
+  const { error } = await portfolioHelper.validateTrade(req.body);
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
@@ -23,7 +25,7 @@ router.post("/add-trade/", async (req, res) => {
         return res.status(400).send(err["message"]);
       });
 
-    const result = portfolioHelper.portfolioAggregator(current_portfolio);
+    const result = await portfolioHelper.portfolioAggregator(current_portfolio);
 
     for (let i = 0; i < result.length; i++) {
       if (result[i]["ticker_name"] === req.body.ticker_name) {
@@ -60,8 +62,9 @@ router.post("/add-trade/", async (req, res) => {
   }
 });
 
+// refer API documentation : API 3
 router.put("/update-trade/:id", async (req, res) => {
-  const { error } = portfolioHelper.validateTrade(req.body);
+  const { error } = await portfolioHelper.validateTrade(req.body);
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
@@ -75,7 +78,7 @@ router.put("/update-trade/:id", async (req, res) => {
         return res.send(err["message"]);
       });
 
-    const result = portfolioHelper.portfolioAggregator(current_portfolio);
+    const result = await portfolioHelper.portfolioAggregator(current_portfolio);
 
     for (let i = 0; i < result.length; i++) {
       if (result[i]["ticker_name"] === req.body.ticker_name) {
@@ -120,6 +123,7 @@ router.put("/update-trade/:id", async (req, res) => {
   }
 });
 
+// refer API documentation : API 4
 router.delete("/remove-trade/:id", async (req, res) => {
   try {
     const trade = await Trade.findByIdAndRemove(req.params.id).catch((err) => {

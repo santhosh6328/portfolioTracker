@@ -2,6 +2,12 @@ const Joi = require("joi");
 const CURRENT_MARKET_PRICE = 100;
 
 function portfolioAggregator(data) {
+  /*
+  Function merges multiple  trades that happens on the same Security
+  and updates the average buying price and total share count.
+  input: Array of trade entry json objects
+  output: Array of trade entries with unique ticker_name
+  */
   let result = [];
   for (let i = 0; i < data.length; i++) {
     if (
@@ -40,6 +46,11 @@ function portfolioAggregator(data) {
 }
 
 function calculateReturns(portfolio) {
+  /*
+  Return is calculated on the current trades in given portfolio
+  input: Array of trade entry json objects
+  output: Actual returns of the portfolio in Integer
+  */
   let total = 0;
   for (let i = 0; i < portfolio.length; i++) {
     total =
@@ -56,6 +67,9 @@ function averageBuyingPrice(
   trade_count,
   trade_price
 ) {
+  /*
+  Calculates the average buying price.
+  */
   return (
     (current_share_price * current_share_count + trade_price * trade_count) /
     (current_share_count + trade_count)
@@ -63,6 +77,9 @@ function averageBuyingPrice(
 }
 
 function validateTrade(trade) {
+  /*
+  Joi schema to validate the user input at runtime
+  */
   const schema = Joi.object({
     portfolio_id: Joi.number().required(),
     trade_type: Joi.string().min(3).max(4).required(),
