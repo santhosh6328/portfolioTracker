@@ -3,11 +3,6 @@
 An Awesome API to help store and analyze trading data, which allows adding/deleting/updating trades
 and can do basic return calculations like Total return on the investment.
 
-### Hosting details
-
-- IP addess : 52.23.177.238 [ Check github issues for latest Static IP]
-- port : 80
-
 ### key features
 
 - Stores all the trade data in a external database
